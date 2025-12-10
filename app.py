@@ -1,12 +1,13 @@
 import streamlit as st
 import numpy as np
 import pandas as pd
-import joblib
+import pickle
 from tensorflow.keras.models import load_model
 
 # Load model and scaler
 model = load_model("aapl_lstm_model.h5")
-scaler = joblib.load("scaler.pkl")
+with open("scaler.pkl", "rb") as f:
+    scaler = pickle.load(f)
 
 st.title("AAPL Stock Close Price Prediction (Next 30 Days)")
 st.write("Predicts future closing prices using Trained LSTM Model")
@@ -30,7 +31,9 @@ if uploaded:
         future_predictions_scaled.append(next_scaled[0, 0])
         last_sequence = np.append(last_sequence[:, 1:, :], [[next_scaled[0]]], axis=1)
 
-    future_predictions = scaler.inverse_transform(np.array(future_predictions_scaled).reshape(-1, 1))
+    future_predictions = scaler.inverse_transform(
+        np.array(future_predictions_scaled).reshape(-1, 1)
+    )
     last_date = df['Date'].iloc[-1]
     future_dates = pd.date_range(start=last_date, periods=future_days+1, freq='B')[1:]
 

@@ -15,7 +15,7 @@ st.write("Predicts future closing prices using Trained LSTM Model")
 uploaded = st.file_uploader("Upload AAPL.csv file", type=["csv"])
 
 # 📌 Add a note about required columns
-st.info("Please upload a CSV file containing the following columns: **Date, Open, High, Low, Close, Adj Close, Volume**")
+st.info("Please upload a CSV file containing the following features: **Date, Open, High, Low, Close, Adj Close, Volume**")
 
 if uploaded:
     df = pd.read_csv(uploaded)

@@ -1,116 +1,216 @@
-# 📈 Stock Price Prediction using LSTM (Deep Learning)
+# 📈 Apple Stock Price Prediction using LSTM  
+
+![Python](https://img.shields.io/badge/Python-3.9-blue?logo=python)
+![TensorFlow](https://img.shields.io/badge/TensorFlow-DeepLearning-orange?logo=tensorflow)
+![Keras](https://img.shields.io/badge/Keras-LSTM-red?logo=keras)
+![Status](https://img.shields.io/badge/Project-Completed-brightgreen)
+![License](https://img.shields.io/badge/License-MIT-lightgrey)
+
+---
 
 ## 🚀 Project Overview
 
-This project implements a Stock Price Prediction System using a Long
-Short-Term Memory (LSTM) neural network. The model is trained on
-historical stock market data to forecast the next day's closing price
-based on the previous 60 days of closing prices.
+This project builds a **Deep Learning-based Stock Price Prediction System** using an **LSTM (Long Short-Term Memory)** neural network to forecast Apple stock closing prices.
 
-The project demonstrates how deep learning models capture temporal
-dependencies in time-series financial data.
+The model is trained on historical stock data and predicts the **next day's closing price using the previous 60 days of data**.
 
-------------------------------------------------------------------------
+It demonstrates:
 
-## 📊 Dataset Description
+- Time-series forecasting  
+- Sequence modeling using LSTM  
+- Model evaluation using RMSE  
+- Deployment-ready deep learning pipeline  
 
-The dataset contains historical stock market data with the following
-features:
+---
 
--   Date -- Trading date
--   Open -- Opening price
--   High -- Highest price of the day
--   Low -- Lowest price of the day
--   Close -- Closing price
--   Adj Close -- Adjusted closing price
--   Volume -- Number of shares traded
+## 📊 Dataset
 
-------------------------------------------------------------------------
+Historical Apple stock data containing:
+
+- Date  
+- Open  
+- High  
+- Low  
+- Close  
+- Adj Close  
+- Volume  
+
+Files used:
+
+- `AAPL.csv`
+- `cleaned dataset to test.csv`
+
+---
 
 ## 🧠 Problem Statement
 
-To build a deep learning model that predicts the next day's stock
-closing price using historical time-series data.
+Stock prices are sequential and highly time-dependent.
 
-Since stock prices are sequential in nature, a recurrent neural network
-approach (LSTM) is used to capture long-term dependencies and trends.
+Traditional regression models fail to capture long-term dependencies.
 
-------------------------------------------------------------------------
+This project uses **LSTM networks**, a specialized Recurrent Neural Network (RNN), to learn temporal patterns and predict future stock prices.
 
-## 🏗️ Methodology
+---
+
+## ⚙️ Methodology
 
 ### 1️⃣ Data Preprocessing
 
--   Converted Date column into datetime format
--   Selected Close price for prediction
--   Applied MinMax Scaling (0--1 normalization)
+- Converted `Date` column to datetime format  
+- Selected `Close` price for prediction  
+- Applied MinMax Scaling (0–1 normalization)  
+- Created sequences with a 60-day look-back window  
 
-### 2️⃣ Sequence Generation
+---
 
--   Look-back window = 60 days
--   Previous 60 days → Predict next day
--   Converted time-series into supervised learning format
+### 2️⃣ Sequence Creation
+
+Previous 60 days → Predict next day
+
+Example:
+
+```
+Day 1 → Day 60  → Predict Day 61
+Day 2 → Day 61  → Predict Day 62
+```
+
+Converted time-series data into supervised learning format.
+
+---
 
 ### 3️⃣ Train-Test Split
 
--   80% Training data
--   20% Testing data
--   Maintained chronological order (no shuffling)
+- 80% Training  
+- 20% Testing  
+- Chronological split (no shuffling to prevent data leakage)
 
-### 4️⃣ Model Architecture
+---
 
--   LSTM Layer (50 units, return_sequences=True)
--   Dropout (0.2)
--   LSTM Layer (50 units)
--   Dropout (0.2)
--   Dense Layer (1 neuron output)
+## 🏗️ Model Architecture
 
-Optimizer: Adam\
-Loss Function: Mean Squared Error (MSE)
+```
+Input (60 Days)
+        ↓
+LSTM (50 units, return_sequences=True)
+        ↓
+Dropout (0.2)
+        ↓
+LSTM (50 units)
+        ↓
+Dropout (0.2)
+        ↓
+Dense (1 Output)
+```
 
-------------------------------------------------------------------------
+**Optimizer:** Adam  
+**Loss Function:** Mean Squared Error (MSE)  
+
+---
 
 ## 📐 Model Evaluation
 
-The model was evaluated using:
+Metrics Used:
 
--   RMSE (Root Mean Squared Error)
--   Percentage accuracy within 5% tolerance
+- ✅ Root Mean Squared Error (RMSE)  
+- ✅ Percentage Accuracy (within 5% tolerance)
 
-Predictions were inverse-scaled back to original price values before
-evaluation.
+Predictions are inverse-transformed back to original stock price scale before evaluation.
 
-------------------------------------------------------------------------
+---
 
-## 🛠️ Technologies Used
+## 📊 Sample Performance Metrics
 
--   Python
--   NumPy
--   Pandas
--   Matplotlib
--   Scikit-learn
--   TensorFlow / Keras
+| Metric | Training | Testing |
+|--------|----------|----------|
+| RMSE   | Low      | Moderate |
+| Accuracy (±5%) | High | Good |
 
-------------------------------------------------------------------------
+*(Exact values depend on dataset split and training runs.)*
+
+---
+
+## 💾 Saved Artifacts
+
+After training:
+
+- `aapl_lstm_model.h5` → Trained LSTM model  
+- `scaler.pkl` → Saved MinMaxScaler  
+
+These are reused during deployment for real-time predictions.
+
+---
+
+## 🌐 Deployment
+
+The project includes a deployable web application:
+
+- `app.py` → Streamlit/Flask app  
+- `requirements.txt` → Dependencies  
+- `Deployement link` → Live application  
+
+Users can input stock values and get predicted closing prices.
+
+---
+
+## 🛠️ Tech Stack
+
+- Python  
+- NumPy  
+- Pandas  
+- Matplotlib  
+- Scikit-learn  
+- TensorFlow  
+- Keras  
+- Streamlit / Flask  
+
+---
 
 ## 📂 Project Structure
 
-Stock-Price-Prediction/ │ ├── stock_data.csv ├──
-stock_prediction_lstm.ipynb ├── stock_prediction_lstm.py ├── README.md
+```
+APPLE_STOCK_PROJECT/
+│
+├── AAPL.csv
+├── cleaned dataset to test.csv
+├── aapl_lstm_model.h5
+├── scaler.pkl
+├── app.py
+├── requirements.txt
+├── README.md
+└── Deployement link
+```
 
-------------------------------------------------------------------------
+---
 
-## 🚀 Future Improvements
+## 🚀 Future Enhancements
 
--   Add technical indicators (RSI, EMA, MACD)
--   Compare LSTM with GRU and ANN
--   Multi-feature prediction
--   Hyperparameter tuning
--   Deploy using Streamlit
+- Add Technical Indicators (RSI, EMA, MACD)  
+- Compare LSTM vs GRU vs ANN  
+- Multi-feature input (OHLCV)  
+- Hyperparameter tuning  
+- Add attention mechanism  
+- Docker containerization  
+- CI/CD integration  
 
-------------------------------------------------------------------------
+---
+
+## 📌 Key Learning Outcomes
+
+✔ Time-series forecasting  
+✔ Deep learning model design  
+✔ Sequence data preprocessing  
+✔ Model evaluation techniques  
+✔ Deployment of ML models  
+
+---
 
 ## 👨‍💻 Author
 
-Gandra Bharadhwaj\
-Artificial Intelligence & Machine Learning Student
+**Gandra Bharadhwaj**  
+Artificial Intelligence & Machine Learning Student  
+
+---
+
+## ⭐ If you found this project useful
+
+Give it a ⭐ on GitHub and feel free to fork or contribute!

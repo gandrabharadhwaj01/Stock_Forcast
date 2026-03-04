@@ -7,7 +7,11 @@
 ![License](https://img.shields.io/badge/License-MIT-lightgrey)
 
 ---
+## 🚀 Live Demo
 
+https://stockforcast-n9ypgw2442mqfunvsq8ivi.streamlit.app
+
+---
 ## 🚀 Project Overview
 
 This project builds a **Deep Learning-based Stock Price Prediction System** using an **LSTM (Long Short-Term Memory)** neural network to forecast Apple stock closing prices.
